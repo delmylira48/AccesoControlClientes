@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Plantilla</title>
+</head>
+<body>
+<header th:fragment="header">
+    <h1 th:text="#{platilla.titulo}"></h1>
+    <a style="text-align: right" href="/cuenta">Cuenta</a>
+</header>
+
+<footer th:fragment="footer">
+    <div>
+        <a th:href="@{thymeleaf(lang=es)}">ES</a> |
+        <a th:href="@{thymeleaf(lang=en)}">EN</a>
+    </div>
+    <br>
+    <p> [[#{plantilla.pie-pagina}]] <a href="http://www.facebook.com" target="_blank">mensaje facebook</a></p>
+    <form method="post" th:action="@{/logout}" id="logoutForm"></form>
+    <b>User:</b> <span sec:authentication="name">Usuario que se logueo</span> |
+    <b>Roles:</b> <span sec:authentication="principal.authorities">Roles del usuario</span> |
+    <a href="/thymeleaf" onclick="document.getElementById('logoutForm').submit(); return false;">Log out</a>
+</footer>
+</body>
+</html>

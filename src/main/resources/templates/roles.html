@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns:th="https://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Roles</title>
+</head>
+<body>
+
+    <header th:replace="~{layout/plantilla :: header}"></header>
+
+    <h1>Control de roles</h1>
+    <a th:href="@{/thymeleaf}">Regresar</a>
+    <form th:action="@{/roles}" method="post" th:object="${rol}">
+        <label th:for="nombreRol" >Nuevo rol:</label>
+        <input type="text" name="nombreRol" id="nombreRol" th:field="${rol.nombre}">
+        <input type="submit" value="Guardar">
+    </form>
+    <br>
+
+    <h2>Roles disponibles</h2>
+    <Table border="1">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody th:if="${roles !=null or !roles.empty}">
+            <tr th:each="rol : ${roles}">
+                <td th:text="${rol.nombre}"></td>
+                <td >
+                    <a th:if="${rol.nombre != 'ROLE_ADMIN' and rol.nombre != 'ROLE_USER'}" th:href="@{/roles/eliminarRol(id=${rol.id})}">Eliminar</a>
+                    <p th:if="${rol.nombre == 'ROLE_ADMIN' or rol.nombre == 'ROLE_USER'}" style="color: gray; margin: 0">Eliminar</p>
+                </td>
+
+            </tr>
+        </tbody>
+        <tbody th:if="${roles == null or roles.empty}">
+            <tr>
+                <td colspan="2"> No hay roles disponibles </td>
+            </tr>
+        </tbody>
+    </Table>
+
+    <footer th:replace="~{layout/plantilla :: footer}"></footer>
+</body>
+</html>

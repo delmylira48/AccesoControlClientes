@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{admin.titulo}"></title>
+</head>
+<body>
+
+<header th:replace="~{layout/plantilla :: header}"></header>
+
+<h1 th:text="#{admin.titulo}"></h1>
+<a th:href="@{/thymeleaf}">Regresar</a>
+<br>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Usuario</th>
+        <th th:each="rol : ${roles.?[#this.nombre != 'ROLE_ADMIN']}">[[${rol.nombre}]]</th> <!-- QUITAR ROLE_ADMIN -->
+        <th>Acción</th>
+    </tr>
+    </thead>
+
+    <tbody th:if="${usuarios != null and !usuarios.empty}">
+    <tr th:each="usuario : ${usuarios}">
+        <td th:text="${usuario.username}">Mostrar username</td>
+        <td th:each="rol : ${roles.?[#this.nombre != 'ROLE_ADMIN']}">
+            <form th:action="@{/usuarios/quitarRol}" method="post" th:if="${usuario.roles.contains(rol.nombre)}">
+                <input type="hidden"  name="idUser" th:value="${usuario.id}" />
+                <input type="hidden" name="idRol" th:value="${rol.id}" />
+                <button type="submit" style="cursor:pointer; padding:0; margin:0;" th:disabled="${rol.nombre == 'ROLE_USER'}">Quitar</button>
+            </form>
+            <form th:action="@{/usuarios/agregarRol}" method="post" th:if="${!usuario.roles.contains(rol.nombre)}">
+                <input type="hidden" name="idUser" th:value="${usuario.id}" />
+                <input type="hidden" name="idRol" th:value="${rol.id}" />
+                <button type="submit" style="cursor:pointer; padding:0; margin:0;">Agregar</button>
+            </form>
+        </td>
+        <td>
+            <form th:action="@{/usuarios/eliminar}" method="post" >
+                <input type="hidden"  name="id" th:value="${usuario.id}" />
+                <button type="submit" style="cursor:pointer; padding:0; margin:0;" th:disabled="${usuario.id == usuarioAutenticado.id}">Eliminar</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+    <tbody th:if="${usuarios == null or usuarios.empty}">
+    <tr>
+        <td th:colspan="${#lists.size(roles) + 1}">La lista está vacia</td>
+    </tr>
+    </tbody>
+</table>
+<footer th:replace="~{layout/plantilla :: footer}"></footer>
+</body>
+</html>
