@@ -4,13 +4,17 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
+import lombok.ToString;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 @Data //Constructor vacio, metodo iquals, getter, setter, hashcode, toString
 @Entity
 @Table(name = "persona")
+@ToString
 public class Persona implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id

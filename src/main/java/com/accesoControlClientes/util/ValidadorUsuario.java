@@ -20,8 +20,4 @@ public class ValidadorUsuario {
             usuario.setPassword(usuario.getPassword().trim());
         }
     }
-
-    public boolean esVacioRelacionUsuarioRol(Long idUsuario, Long idRol){
-        return ValidadorCampos.esVacio(idUsuario) || ValidadorCampos.esVacio(idRol);
-    }
 }

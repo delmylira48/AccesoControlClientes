@@ -20,15 +20,12 @@ import java.util.List;
 class RolImplement implements RolServicio {
 
     private final RolDAO rolDAO;
-    private final ValidadorRoles validadorRoles;
 
     @Override
     @Transactional(readOnly = true)
     public List<Rol> listarRoles() {
         log.info("[listarRoles] Intentando listar roles");
-
         var roles = rolDAO.findAll();
-
         log.info("[listarRoles] Roles encontrados: {}", roles.size());
         return roles;
     }
@@ -37,14 +34,11 @@ class RolImplement implements RolServicio {
     @Transactional
     public void guardar(Rol rol) {
         log.info("[guardar roles] Intentando guardar rol: {}", rol.getNombre());
-
         if(ValidadorCampos.esVacio(rol.getNombre())) {
             log.warn("[guardar roles] Datos vacios en rol");
             throw new DatosVaciosException();
         }
-
         rol.setNombre(rol.getNombre().trim());
-
         rolDAO.save(rol);
         log.info("[guardar roles] Rol guardado con id: {}", rol.getId());
     }

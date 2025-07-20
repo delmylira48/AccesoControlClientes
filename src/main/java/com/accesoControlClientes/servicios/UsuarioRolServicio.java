@@ -15,7 +15,7 @@ public interface UsuarioRolServicio {
 
     Set<Rol> obtenerRolesPorUsuario(Long usuario);
 
-    List<Usuario> obtenerUsuariosPorRol(Long rol);
+    Set<Usuario> obtenerUsuariosPorRol(Long rol);
 
     UsuarioRol buscar(Long usuario, Long rol);
 

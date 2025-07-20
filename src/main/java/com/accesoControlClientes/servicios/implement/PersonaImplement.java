@@ -19,8 +19,8 @@ import java.util.List;
 @Slf4j
 public class PersonaImplement implements PersonaServicio {
 
-    private PersonaDAO personaDAO;
-    private ValidadorPersona validadorPersona;
+    private final PersonaDAO personaDAO;
+    private final ValidadorPersona validadorPersona;
 
     @Override
     @Transactional(readOnly = true)

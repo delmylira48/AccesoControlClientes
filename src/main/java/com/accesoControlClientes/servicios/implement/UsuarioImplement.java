@@ -10,6 +10,7 @@ import com.accesoControlClientes.util.ValidadorCampos;
 import com.accesoControlClientes.util.ValidadorUsuario;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -69,13 +70,10 @@ public class UsuarioImplement implements UsuarioServicio, UserDetailsService { /
             log.warn("[Actualizar Usuario] Usuario con datos vacíos");
             throw new DatosVaciosException();
         }
-
         validadorUsuario.limpiarUsuario(usuarioActualizado);
 
         log.info("[Actualizar Usuario] Buscando usuario con id: {}", usuarioActualizado.getId());
-        Usuario usuarioOrigen = usuarioDAO.findById(usuarioActualizado.getId())
-                .orElseThrow(() -> new UsuarioNoEncontradoException(usuarioActualizado.getId()));
-
+        Usuario usuarioOrigen = buscar(usuarioActualizado.getId());
         usuarioOrigen.setUsername(usuarioActualizado.getUsername());
 
         if(!ValidadorCampos.esVacio(usuarioActualizado.getPassword())) {
@@ -98,8 +96,7 @@ public class UsuarioImplement implements UsuarioServicio, UserDetailsService { /
         }
 
         log.info("[Eliminar Usuario] Buscando usuario con id {}", usuarioId);
-        var usuario = usuarioDAO.findById(usuarioId)
-                .orElseThrow(() -> new UsuarioNoEncontradoException(usuarioId));
+        var usuario = buscar(usuarioId);
 
         usuarioDAO.delete(usuario);
         log.info("[Eliminar Usuario] Usuario con id {} eliminado", usuarioId);
@@ -131,13 +128,11 @@ public class UsuarioImplement implements UsuarioServicio, UserDetailsService { /
             log.warn("[Buscar Usuario] Dato vacio en username");
             throw new DatosVaciosException();
         }
-
         var usernameN = username.trim();
-
         var usuario= usuarioDAO.findByUsername(usernameN)
                 .orElseThrow( () -> new UsuarioNoEncontradoException(usernameN));
 
-        log.info("[Buscar Usuario] Usuario con username {} encontrado", username);
+        log.info("[Buscar Usuario] Usuario con username {} encontrado", usernameN);
         return usuario;
     }
 
@@ -160,23 +155,16 @@ public class UsuarioImplement implements UsuarioServicio, UserDetailsService { /
 
         if(ValidadorCampos.esVacio(username)){
             log.warn("[Auth] Dato vacio en username");
-            throw new DatosVaciosException();
+            throw new BadCredentialsException("El username no puede estar vacío");
         }
 
-        var usernameN = username.trim();
-
-        log.info("[Auth] Buscando usuario con username: {}", usernameN);
-        Usuario usuario = usuarioDAO.findByUsername(usernameN)
-                .orElseThrow(() -> {
-                    log.warn("[Auth] Usuario con username '{}' no encontrado", usernameN);
-                    return new UsernameNotFoundException("Usuario no encontrado");
-        });
-
-        log.info("[Auth] Usuario con username {} encontrado", usernameN);
+        log.info("[Auth] Buscando usuario con username: {}", username);
+        Usuario usuario = usuarioDAO.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("El usuario con username: " + username + " no fue encontrado"));
         usuario.getUsuarioRolSet().size(); //// Forzar carga de roles (lazy y no Earger)
-
         //Envio el usuario autenticado userDetails y recupera los roles en automático con getAuthorities
-        log.info("[Auth] Usuario '{}' autenticado exitosamente", usernameN);
+        log.info("[Auth] Usuario '{}' autenticado exitosamente", username);
         return new UsuarioAutenticado(usuario);
+
+
     }
 }
