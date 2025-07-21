@@ -2,11 +2,10 @@ package com.accesoControlClientes.servicios.implement;
 
 import com.accesoControlClientes.excepciones.DatosVaciosException;
 import com.accesoControlClientes.excepciones.RolNoEncontradoException;
-import com.accesoControlClientes.dominio.Rol;
+import com.accesoControlClientes.modelos.Rol;
 import com.accesoControlClientes.interfaces.RolDAO;
 import com.accesoControlClientes.servicios.RolServicio;
 import com.accesoControlClientes.util.ValidadorCampos;
-import com.accesoControlClientes.util.ValidadorRoles;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

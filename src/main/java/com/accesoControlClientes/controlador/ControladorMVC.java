@@ -1,6 +1,6 @@
 package com.accesoControlClientes.controlador;
 
-import com.accesoControlClientes.dominio.Usuario;
+import com.accesoControlClientes.modelos.Usuario;
 import com.accesoControlClientes.servicios.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

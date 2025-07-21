@@ -1,6 +1,6 @@
 package com.accesoControlClientes.util;
 
-import com.accesoControlClientes.dominio.Rol;
+import com.accesoControlClientes.modelos.Rol;
 import org.springframework.stereotype.Component;
 
 @Component

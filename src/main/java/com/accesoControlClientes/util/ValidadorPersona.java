@@ -1,6 +1,6 @@
 package com.accesoControlClientes.util;
 
-import com.accesoControlClientes.dominio.Persona;
+import com.accesoControlClientes.modelos.Persona;
 import org.springframework.stereotype.Component;
 
 @Component

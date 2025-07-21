@@ -1,4 +1,4 @@
-package com.accesoControlClientes.dominio;
+package com.accesoControlClientes.modelos;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

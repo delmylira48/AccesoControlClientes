@@ -1,6 +1,6 @@
 package com.accesoControlClientes.servicios;
 
-import com.accesoControlClientes.dominio.Persona;
+import com.accesoControlClientes.modelos.Persona;
 
 import java.util.List;
 

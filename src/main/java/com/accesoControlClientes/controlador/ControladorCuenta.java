@@ -1,6 +1,6 @@
 package com.accesoControlClientes.controlador;
 
-import com.accesoControlClientes.dominio.Usuario;
+import com.accesoControlClientes.modelos.Usuario;
 import com.accesoControlClientes.security.UsuarioAutenticado;
 import com.accesoControlClientes.servicios.UsuarioServicio;
 import com.accesoControlClientes.security.SecurityService;

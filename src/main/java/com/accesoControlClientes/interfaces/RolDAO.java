@@ -1,6 +1,6 @@
 package com.accesoControlClientes.interfaces;
 
-import com.accesoControlClientes.dominio.Rol;
+import com.accesoControlClientes.modelos.Rol;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

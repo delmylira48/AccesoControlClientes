@@ -3,7 +3,7 @@ package com.accesoControlClientes.servicios.implement;
 import com.accesoControlClientes.excepciones.DatosVaciosException;
 import com.accesoControlClientes.excepciones.UsuarioNoEncontradoException;
 import com.accesoControlClientes.security.UsuarioAutenticado;
-import com.accesoControlClientes.dominio.Usuario;
+import com.accesoControlClientes.modelos.Usuario;
 import com.accesoControlClientes.interfaces.UsuarioDAO;
 import com.accesoControlClientes.servicios.UsuarioServicio;
 import com.accesoControlClientes.util.ValidadorCampos;

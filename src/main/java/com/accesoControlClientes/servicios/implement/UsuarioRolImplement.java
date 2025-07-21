@@ -3,9 +3,9 @@ package com.accesoControlClientes.servicios.implement;
 import com.accesoControlClientes.excepciones.DatosVaciosException;
 import com.accesoControlClientes.excepciones.UsuarioRolNoEncontradoException;
 import com.accesoControlClientes.excepciones.UsuarioRolYaExisteException;
-import com.accesoControlClientes.dominio.Rol;
-import com.accesoControlClientes.dominio.Usuario;
-import com.accesoControlClientes.dominio.UsuarioRol;
+import com.accesoControlClientes.modelos.Rol;
+import com.accesoControlClientes.modelos.Usuario;
+import com.accesoControlClientes.modelos.UsuarioRol;
 import com.accesoControlClientes.excepciones.UsuarioSinRolesException;
 import com.accesoControlClientes.interfaces.UsuarioRolDAO;
 import com.accesoControlClientes.servicios.RolServicio;
@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 

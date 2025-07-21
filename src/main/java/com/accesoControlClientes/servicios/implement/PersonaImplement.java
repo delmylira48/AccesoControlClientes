@@ -1,6 +1,6 @@
 package com.accesoControlClientes.servicios.implement;
 
-import com.accesoControlClientes.dominio.Persona;
+import com.accesoControlClientes.modelos.Persona;
 import com.accesoControlClientes.excepciones.DatosVaciosException;
 import com.accesoControlClientes.excepciones.PersonaNoEncontradaException;
 import com.accesoControlClientes.interfaces.PersonaDAO;

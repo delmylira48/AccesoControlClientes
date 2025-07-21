@@ -1,6 +1,6 @@
 package com.accesoControlClientes.controlador;
 
-import com.accesoControlClientes.dominio.Rol;
+import com.accesoControlClientes.modelos.Rol;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;

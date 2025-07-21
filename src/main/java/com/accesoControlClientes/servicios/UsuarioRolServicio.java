@@ -1,8 +1,8 @@
 package com.accesoControlClientes.servicios;
 
-import com.accesoControlClientes.dominio.Rol;
-import com.accesoControlClientes.dominio.Usuario;
-import com.accesoControlClientes.dominio.UsuarioRol;
+import com.accesoControlClientes.modelos.Rol;
+import com.accesoControlClientes.modelos.Usuario;
+import com.accesoControlClientes.modelos.UsuarioRol;
 
 import java.util.List;
 import java.util.Set;

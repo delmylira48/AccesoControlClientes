@@ -1,6 +1,6 @@
 package com.accesoControlClientes.security;
 
-import com.accesoControlClientes.dominio.Usuario;
+import com.accesoControlClientes.modelos.Usuario;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

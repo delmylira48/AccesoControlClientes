@@ -1,7 +1,7 @@
 package com.accesoControlClientes.DTO.mapper;
 
 import com.accesoControlClientes.DTO.RolesDTO;
-import com.accesoControlClientes.dominio.Rol;
+import com.accesoControlClientes.modelos.Rol;
 import org.mapstruct.Mapper;
 
 import java.util.List;

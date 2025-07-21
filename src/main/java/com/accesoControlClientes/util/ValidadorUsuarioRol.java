@@ -1,6 +1,5 @@
 package com.accesoControlClientes.util;
 
-import com.accesoControlClientes.dominio.Usuario;
 import org.springframework.stereotype.Component;
 
 @Component
