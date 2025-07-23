@@ -1,6 +1,7 @@
 package com.accesoControlClientes.controlador;
 
 import com.accesoControlClientes.modelos.Persona;
+import com.accesoControlClientes.security.UsuarioAutenticado;
 import com.accesoControlClientes.servicios.PersonaServicio;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -21,8 +22,8 @@ public class ControladorPersona {
 
     private final PersonaServicio personaServicio;
 
-    @GetMapping("/thymeleaf")
-    public String inicio(Model model, @AuthenticationPrincipal User user){ //imprime el usuario logueado con AuthenticationPrincipal
+    @GetMapping("/")
+    public String inicio(Model model, @AuthenticationPrincipal UsuarioAutenticado usuarioAutenticado){
         var personas = personaServicio.listarPersonas();
         log.info("Ejecutando controlador MVC");
         model.addAttribute("personas", personas);
