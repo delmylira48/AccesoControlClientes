@@ -2,6 +2,7 @@ package com.accesoControlClientes.servicios.implement;
 
 import com.accesoControlClientes.excepciones.DatosVaciosException;
 import com.accesoControlClientes.excepciones.RolNoEncontradoException;
+import com.accesoControlClientes.excepciones.RolNombreYaExisteException;
 import com.accesoControlClientes.modelos.Rol;
 import com.accesoControlClientes.interfaces.RolDAO;
 import com.accesoControlClientes.servicios.RolServicio;
@@ -37,7 +38,11 @@ class RolImplement implements RolServicio {
             log.warn("[guardar roles] Datos vacios en rol");
             throw new DatosVaciosException();
         }
-        rol.setNombre(rol.getNombre().trim());
+        var nombre = rol.getNombre().trim();
+        rol.setNombre(nombre);
+        if(rolDAO.findByNombre(nombre).isPresent()){
+            throw new RolNombreYaExisteException(nombre);
+        }
         rolDAO.save(rol);
         log.info("[guardar roles] Rol guardado con id: {}", rol.getId());
     }

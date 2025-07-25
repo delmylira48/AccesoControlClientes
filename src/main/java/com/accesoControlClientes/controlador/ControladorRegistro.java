@@ -29,7 +29,7 @@ public class ControladorRegistro {
 
     @GetMapping("/registro")
     public String registro(Model model){
-        model.addAttribute("usuario", new Usuario());
+        model.addAttribute("usuario", new UsuarioGuardarDTO());
         return "registro";
     }
 
