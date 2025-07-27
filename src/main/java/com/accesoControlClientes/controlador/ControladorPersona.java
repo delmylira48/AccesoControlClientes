@@ -24,13 +24,13 @@ public class ControladorPersona {
     private final PersonaServicio personaServicio;
     private final PersonaMapper personaMapper;
 
-    @GetMapping("/")
-    public String inicio(Model model){
+    @GetMapping("/home")
+    public String home(Model model){
         log.info("[GET/Inicio] Listando personas");
         var personas = personaServicio.listarPersonas();
         log.info("[GET/Inicio] Personas encontradas: {}", personas.size());
         model.addAttribute("personas", personaMapper.toDtoList(personas));
-        return "index";
+        return "home";
     }
 
     @GetMapping("/agregar")
@@ -51,7 +51,7 @@ public class ControladorPersona {
         }catch (AppException e){
             log.error("[POST/Editar] Error al buscar la persona: {}", e.getMessage());
             redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/";
+            return "redirect:/home";
         }
         return "modificar";
     }
@@ -78,7 +78,7 @@ public class ControladorPersona {
             log.error("[POST/Guardar] Error al guardar la persona: {}", e.getMessage());
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         }
-        return "redirect:/";
+        return "redirect:/home";
     }
 
     @PostMapping("/eliminar")
@@ -92,6 +92,6 @@ public class ControladorPersona {
             log.error("[POST/Eliminar] Error al eliminar la persona: {}", e.getMessage());
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         }
-        return "redirect:/";
+        return "redirect:/home";
     }
 }

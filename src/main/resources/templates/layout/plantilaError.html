@@ -5,9 +5,11 @@
     <title>Acceso denegado</title>
 </head>
 <body>
-    Acceso denegado, no tienes permiso para ver o ejecutar en esta interfaz
 
-    <br>
-    <a th:href="@{/}">Regresar</a>
+    <div th:fragment="regresarDiv">
+        <br>
+        <a th:href="@{/home}">Regresar</a>
+    </div>
+
 </body>
 </html>

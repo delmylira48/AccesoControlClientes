@@ -37,9 +37,8 @@ public class webConfig implements WebMvcConfigurer {
     }
 
     //MAPEO DE URLS
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry){
-        registry.addViewController("/login").setViewName("login");
-        registry.addViewController("/error/403").setViewName("errores/403"); //mapear errores
-    }
+//    @Override
+//    public void addViewControllers(ViewControllerRegistry registry){
+//        registry.addViewController("/login").setViewName("login");
+//    }
 }
