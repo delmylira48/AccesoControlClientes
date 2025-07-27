@@ -1,21 +1,13 @@
 package com.accesoControlClientes.controlador;
 
 import com.accesoControlClientes.DTO.RelacionUserRolDTO;
-import com.accesoControlClientes.DTO.RolesDTO;
-import com.accesoControlClientes.DTO.UsuarioDTO;
-import com.accesoControlClientes.DTO.mapper.RolesMapper;
-import com.accesoControlClientes.DTO.mapper.UsuarioMapper;
 import com.accesoControlClientes.controlador.helper.UsuarioVistaHelper;
 import com.accesoControlClientes.excepciones.AppException;
-import com.accesoControlClientes.excepciones.UsuarioNoPuedeEliminarseException;
-import com.accesoControlClientes.modelos.Rol;
 import com.accesoControlClientes.security.SecurityService;
 import com.accesoControlClientes.security.UsuarioAutenticado;
 import com.accesoControlClientes.servicios.RolServicio;
 import com.accesoControlClientes.servicios.UsuarioRolServicio;
-import com.accesoControlClientes.servicios.UsuarioServicio;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,14 +15,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/usuarios")
@@ -63,7 +50,7 @@ public class ControladorUsuariosRol {
         var idRol = dto.getIdRol();
 
         try{
-            if(!esAdmin(idRol)){
+            if(!esRolProtegido(idRol)){
                 usuarioRolServicio.eliminar(id, idRol);
                 redirectAttributes.addFlashAttribute("success", "Rol eliminado con exito");
                 log.info("[Post/Usuarios/quitarRol] Eliminado rol con id {} de usuario con id {}", idRol, id);
@@ -72,8 +59,8 @@ public class ControladorUsuariosRol {
                     securityService.refreshSession(usuarioAutenticado.getUsername());
                 }
             }else{
-                log.warn("[Post/Usuarios/quitarRol] Intento de quitar el rol ADMIN al usuario ID: {}", id);
-                throw new AppException("No se puede quitar el rol de ADMIN");
+                log.warn("[Post/Usuarios/quitarRol] Intento de quitar el rol ADMIN/USER al usuario ID: {}", id);
+                throw new AppException("No se puede quitar el rol de ADMIN/USER al usuario");
             }
 
         }catch (AppException e){
@@ -103,7 +90,7 @@ public class ControladorUsuariosRol {
         var rolId = dto.getIdRol();
 
         try{
-            if(!esAdmin(rolId)){
+            if(!esRolProtegido(rolId)){
                 usuarioRolServicio.guardar(id, rolId);
                 redirectAttributes.addFlashAttribute("success", "Rol agregado con exito");
                 log.info("[Post/Usuarios/agregarRol] Agregado rol con id {} a usuario con id {}", rolId, id);
@@ -124,8 +111,9 @@ public class ControladorUsuariosRol {
     }
 
 
-    private boolean esAdmin(Long idRol){
-        var rol = rolServicio.buscar(idRol);
-        return rol.getNombre().equals("ROLE_ADMIN");
+    private boolean esRolProtegido(Long idRol) {
+        String nombre = rolServicio.buscar(idRol).getNombre();
+        return "ROLE_ADMIN".equals(nombre) || "ROLE_USER".equals(nombre);
     }
+
 }

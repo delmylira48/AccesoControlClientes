@@ -1,21 +1,15 @@
 package com.accesoControlClientes.controlador;
 
-import com.accesoControlClientes.DTO.PersonaDTO;
 import com.accesoControlClientes.DTO.PersonaGuardarDTO;
 import com.accesoControlClientes.DTO.mapper.PersonaMapper;
 import com.accesoControlClientes.excepciones.AppException;
-import com.accesoControlClientes.modelos.Persona;
-import com.accesoControlClientes.security.UsuarioAutenticado;
 import com.accesoControlClientes.servicios.PersonaServicio;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;

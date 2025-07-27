@@ -3,7 +3,6 @@ package com.accesoControlClientes.controlador;
 import com.accesoControlClientes.DTO.UsuarioGuardarDTO;
 import com.accesoControlClientes.DTO.mapper.UsuarioMapper;
 import com.accesoControlClientes.excepciones.AppException;
-import com.accesoControlClientes.modelos.Usuario;
 import com.accesoControlClientes.servicios.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
