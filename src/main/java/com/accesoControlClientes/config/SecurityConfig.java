@@ -27,7 +27,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/","/public", "/otraRutaLibre", "/registro", "/login").permitAll() //permite el acceso sin autenticar
+                        .requestMatchers("/","/public", "/otraRutaLibre", "/registro", "/login", "/error/**").permitAll() //permite el acceso sin autenticar
                         .requestMatchers("/admin/**", "/editar/**", "/eliminar/**", "/agregar/**").hasRole("ADMIN") //autentica con el rol ADMIN
                         .requestMatchers("/home","/user/**").hasAnyRole("USER", "ADMIN") //autentica solo a los roles user y admin
                         .anyRequest().authenticated() //todas las demas es necesario autenticar con cualquier rol.

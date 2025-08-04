@@ -10,11 +10,19 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 
     <header th:replace="~{layout/plantilla :: header}"></header>
 
+    <div th:if="${success}">
+        <p th:text="${success}"></p>
+    </div>
+    <div th:if="${error}">
+        <p th:text="${error}"></p>
+    </div>
+
     <h1>Control de roles</h1>
-    <a th:href="@{/thymeleaf}">Regresar</a>
-    <form th:action="@{/roles}" method="post" th:object="${rol}">
+    <a th:href="@{/}">Regresar</a>
+    <form th:action="@{/roles/guardar}" method="post" th:object="${rol}">
         <label th:for="nombreRol" >Nuevo rol:</label>
-        <input type="text" name="nombreRol" id="nombreRol" th:field="${rol.nombre}">
+        <input type="text" name="nombreRol" id="nombreRol" th:field="*{nombre}">
+        <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error nombre</span>
         <input type="submit" value="Guardar">
     </form>
     <br>
@@ -30,9 +38,11 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
         <tbody th:if="${roles !=null or !roles.empty}">
             <tr th:each="rol : ${roles}">
                 <td th:text="${rol.nombre}"></td>
-                <td >
-                    <a th:if="${rol.nombre != 'ROLE_ADMIN' and rol.nombre != 'ROLE_USER'}" th:href="@{/roles/eliminarRol(id=${rol.id})}">Eliminar</a>
-                    <p th:if="${rol.nombre == 'ROLE_ADMIN' or rol.nombre == 'ROLE_USER'}" style="color: gray; margin: 0">Eliminar</p>
+                <td>
+                    <form th:action="@{/roles/eliminar}" method="post">
+                        <input type="hidden" name="id" th:value="${rol.id}"/>
+                        <input type="submit" value="Eliminar" th:disabled="${rol.nombre == 'ROLE_ADMIN' or rol.nombre == 'ROLE_USER'}"/>
+                    </form>
                 </td>
 
             </tr>

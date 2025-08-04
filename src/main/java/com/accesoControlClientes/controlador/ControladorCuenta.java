@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -32,16 +33,17 @@ public class ControladorCuenta {
     public String cuenta(@AuthenticationPrincipal UsuarioAutenticado usuarioAutenticado,
                          Model model){
         log.info("[Get/Cuenta] Recuperando datos de la cuenta");
-        var usuario = usuarioMapper.toDto(usuarioAutenticado.getUsuario());
+        var usuario = usuarioMapper.toEditarDto(usuarioAutenticado.getUsuario());
         model.addAttribute("usuario", usuario);
         return "cuenta";
     }
 
     @PostMapping("/cuenta")
     public String actualizar(@AuthenticationPrincipal UsuarioAutenticado usuarioAutenticado,
-                             @Valid UsuarioEditarDTO dto,
+                             @Valid @ModelAttribute("usuario") UsuarioEditarDTO dto,
                              BindingResult result,
-                             RedirectAttributes redirectAttributes){
+                             RedirectAttributes redirectAttributes,
+                             Model model){
 
         log.info("[Post/Cuenta] Intentando actualizar datos de la cuenta");
 

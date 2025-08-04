@@ -10,9 +10,11 @@
     <form method="post" th:action="@{/registro}" th:object="${usuario}">
         <label for="username">Username:</label>
         <input type="text" name="username" id="username" th:field="*{username}">
+        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Error username</span>
         <br>
         <label for="password">password:</label>
         <input type="password" name="password" id="password" th:field="*{password}">
+        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error password</span>
         <br>
         <input type="submit" value="login">
         <br>

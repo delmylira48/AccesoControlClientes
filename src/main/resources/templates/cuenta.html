@@ -13,6 +13,7 @@
     <form method="post" th:action="@{/cuenta}" th:object="${usuario}">
         <label for="username">Username:</label>
         <input type="text" name="username" id="username" th:field="*{username}">
+        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Error username</span>
         <br>
         <label for="password">password:</label>
         <input type="password" name="password" id="password" th:field="*{password}" placeholder="Actualizar contraseña">

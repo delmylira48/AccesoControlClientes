@@ -3,13 +3,22 @@
 xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Control clientes</title>
 </head>
 <body>
 
     <header th:replace="~{layout/plantilla :: header}"></header>
 
+    <div th:if="${success}" class="alert alert-success">
+        <p th:text="${success}"></p>
+    </div>
+
+    <div th:if="${error}" class="alert alert-success">
+        <p th:text="${error}"></p>
+    </div>
+
     <div th:if="${#authentication.authenticated}">
+
     <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/agregar}">Crear persona</a>
     <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin}">Gestionar admin</a>
     <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/roles}">Gestionar roles</a>
@@ -18,10 +27,10 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <br>
     <table border="1">
         <tr>
-            <th>nombré</th>
-            <th>apellido</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
             <th>Email</th>
-            <th>Telefono</th>
+            <th>Teléfono</th>
             <th sec:authorize="hasRole('ROLE_ADMIN')">Editar</th>
             <th sec:authorize="hasRole('ROLE_ADMIN')">Eliminar</th>
         </tr>
@@ -31,8 +40,18 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                 <td th:text="${persona.apellido1}">Mostrar apellido</td>
                 <td th:text="${persona.email}">Mostrar email</td>
                 <td th:text="${persona.telefono}">Mostrar telefono</td>
-                <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/editar/} + ${persona.id}" th:text="Editar"/></td>
-                <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/eliminar(id = ${persona.id})}" th:text="Eliminar"/></td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')">
+                    <form th:action="@{/editar}" method="post">
+                        <input type="hidden" name="id" th:value="${persona.id}"/>
+                        <input type="submit" value="Editar"/>
+                    </form>
+                </td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')">
+                    <form th:action="@{/eliminar}" method="post">
+                        <input type="hidden" name="id" th:value="${persona.id}"/>
+                        <input type="submit" value="Eliminar"/>
+                    </form>
+                </td>
             </tr>
         </div>
         <div th:if="${personas== null or personas.empty}">

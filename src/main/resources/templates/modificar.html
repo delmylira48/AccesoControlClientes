@@ -2,12 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Datos</title>
+    <title>Datos cliente</title>
 </head>
 <body>
     <header th:replace="~{layout/plantilla :: header}"></header>
     <h2>Datos de persona</h2>
-    <a th:href="@{/thymeleaf}">Regresar</a>
+    <a th:href="@{/}">Regresar</a>
     <br>
     <form th:action="@{/guardar}" method="post" th:object="${persona}"> <!-- th:object asocia el formulario a un objeto tipo persona -->
         <input type="hidden" th:field="${persona.id}" name="id">
