@@ -11,7 +11,16 @@
 <header th:replace="~{layout/plantilla :: header}"></header>
 
 <h1 th:text="#{admin.titulo}"></h1>
-<a th:href="@{/thymeleaf}">Regresar</a>
+<a th:href="@{/home}">Regresar</a>
+
+<div th:if="${success}" class="alert alert-success">
+    <p th:text="${success}"></p>
+</div>
+
+<div th:if="${error}" class="alert alert-success">
+    <p th:text="${error}"></p>
+</div>
+
 <br>
 <table border="1">
     <thead>

@@ -6,9 +6,19 @@
 </head>
 <body>
 
+
     <header th:replace="~{layout/plantilla :: header}"></header>
 
+
     <h1 >Modificar</h1>
+
+    <div th:if="${success}" class="alert alert-success">
+        <p th:text="${success}"></p>
+    </div>
+
+    <div th:if="${error}" class="alert alert-success">
+        <p th:text="${error}"></p>
+    </div>
 
     <form method="post" th:action="@{/cuenta}" th:object="${usuario}">
         <label for="username">Username:</label>
@@ -20,7 +30,7 @@
         <br>
         <input type="submit" value="Actualizar">
         <br>
-        <a href="/thymeleaf" >Regresar</a>
+        <a href="/home" >Regresar</a>
     </form>
 
     <footer th:replace="~{layout/plantilla :: footer}"></footer>

@@ -7,6 +7,14 @@
 <body>
     <h1 th:text="#{login.registro}">Login</h1>
 
+    <div th:if="${success}" class="alert alert-success">
+        <p th:text="${success}"></p>
+    </div>
+
+    <div th:if="${error}" class="alert alert-success">
+        <p th:text="${error}"></p>
+    </div>
+
     <form method="post" th:action="@{/registro}" th:object="${usuario}">
         <label for="username">Username:</label>
         <input type="text" name="username" id="username" th:field="*{username}">

@@ -11,7 +11,15 @@
 <header th:replace="~{layout/plantilla :: header}"></header>
 
 <h1 th:text="#{admin.titulo}"></h1>
-<a th:href="@{/thymeleaf}">Regresar</a>
+<a th:href="@{/home}">Regresar</a>
+
+<div th:if="${success}" class="alert alert-success">
+    <p th:text="${success}"></p>
+</div>
+
+<div th:if="${error}" class="alert alert-success">
+    <p th:text="${error}"></p>
+</div>
 <br>
 <table border="1">
     <thead>
@@ -25,8 +33,10 @@
         <tr th:each="usuario : ${usuariosAdmin}">
             <td th:text="${usuario.username}">Mostrar username</td>
             <td>
-                <a th:href="@{/admin/quitarAdmin(id=${usuario.id})}" th:if="${usuarioAutenticado.username != usuario.username}" >Quitar admin</a>
-                <p th:if="${usuarioAutenticado.username == usuario.username}" style="color: gray; margin: 0" >Quitar admin</p>
+                <form th:action="@{/admin/quitarAdmin}" method="post">
+                    <input type="hidden" name="id" th:value="${usuario.id}" />
+                    <button type="submit" style="cursor:pointer; padding:0; margin:0;" th:disabled="${usuario.id == usuarioAutenticado.id}">Quitar admin</button>
+                </form>
             </td>
         </tr>
     </tbody>
@@ -51,7 +61,10 @@
     <tr th:each = "usuario : ${usuarios}">
         <td th:text="${usuario.username}">username</td>
         <td>
-            <a th:href="@{/admin/agregarAdmin(id=${usuario.id})}" >Agregar admin</a>
+            <form th:action="@{/admin/agregarAdmin}" method="post">
+                <input type="hidden" name="id" th:value="${usuario.id}" />
+                <button type="submit" style="cursor:pointer; padding:0; margin:0;" th:disabled="${usuario.id == usuarioAutenticado.id}">Agregar admin</button>
+            </form>
         </td>
     </tr>
     </tbody>

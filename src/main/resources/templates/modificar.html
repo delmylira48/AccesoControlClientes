@@ -8,6 +8,15 @@
     <header th:replace="~{layout/plantilla :: header}"></header>
     <h2>Datos de persona</h2>
     <a th:href="@{/}">Regresar</a>
+
+    <div th:if="${success}" class="alert alert-success">
+        <p th:text="${success}"></p>
+    </div>
+
+    <div th:if="${error}" class="alert alert-success">
+        <p th:text="${error}"></p>
+    </div>
+
     <br>
     <form th:action="@{/guardar}" method="post" th:object="${persona}"> <!-- th:object asocia el formulario a un objeto tipo persona -->
         <input type="hidden" th:field="${persona.id}" name="id">

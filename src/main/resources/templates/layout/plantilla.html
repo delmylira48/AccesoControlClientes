@@ -13,15 +13,15 @@
 
 <footer th:fragment="footer">
     <div>
-        <a th:href="@{thymeleaf(lang=es)}">ES</a> |
-        <a th:href="@{thymeleaf(lang=en)}">EN</a>
+        <a th:href="@{home(lang=es)}">ES</a> |
+        <a th:href="@{home(lang=en)}">EN</a>
     </div>
     <br>
     <p> [[#{plantilla.pie-pagina}]] <a href="http://www.facebook.com" target="_blank">mensaje facebook</a></p>
     <form method="post" th:action="@{/logout}" id="logoutForm"></form>
     <b>User:</b> <span sec:authentication="name">Usuario que se logueo</span> |
     <b>Roles:</b> <span sec:authentication="principal.authorities">Roles del usuario</span> |
-    <a href="/thymeleaf" onclick="document.getElementById('logoutForm').submit(); return false;">Log out</a>
+    <a href="/home" onclick="document.getElementById('logoutForm').submit(); return false;">Log out</a>
 </footer>
 </body>
 </html>
